@@ -20,8 +20,8 @@ public class Inicio extends AppCompatActivity {
 
     private ListView listview_empresas;
     private String HOST = "http://192.168.0.102/LoginApp/";
-    private EmpresasAdapter empresasAdapter;
-    private List<Empresas> lista;
+    private EmpresaAdapter empresaAdapter;
+    private List<Empresa> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +30,17 @@ public class Inicio extends AppCompatActivity {
 
         listview_empresas = (ListView) findViewById(R.id.listview_empresas);
 
-        lista = new ArrayList<Empresas>();
-        empresasAdapter = new EmpresasAdapter(Inicio.this, lista);
+        lista = new ArrayList<Empresa>();
+        empresaAdapter = new EmpresaAdapter(Inicio.this, lista);
 
-        listview_empresas.setAdapter(empresasAdapter);
+        listview_empresas.setAdapter(empresaAdapter);
 
         listaEmpresas();
 
         listview_empresas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Empresas empresa = (Empresas) adapterView.getAdapter().getItem(i);
+                Empresa empresa = (Empresa) adapterView.getAdapter().getItem(i);
                 String nomebd = empresa.getNomebd();
                 Intent filas = new Intent(Inicio.this, Filas.class);
                 filas.putExtra("banco", nomebd);
@@ -66,7 +66,7 @@ public class Inicio extends AppCompatActivity {
                             for(int i = 0; i < result.size(); i++){
 
                                 JsonObject obj = result.get(i).getAsJsonObject();
-                                Empresas empresa = new Empresas();
+                                Empresa empresa = new Empresa();
                                 empresa.setEmpresa(obj.get("EMPRESA").getAsString());
                                 empresa.setEndereco(obj.get("ENDERECO").getAsString());
                                 empresa.setNomebd(obj.get("BANCODEDADOS").getAsString());
@@ -75,7 +75,7 @@ public class Inicio extends AppCompatActivity {
 
                             }
 
-                            empresasAdapter.notifyDataSetChanged();
+                            empresaAdapter.notifyDataSetChanged();
 
                         }catch (Exception erro){
                             Toast.makeText(Inicio.this, "Ocorreu um erro ao carregar empresas!", Toast.LENGTH_LONG).show();

@@ -1,6 +1,6 @@
 package com.atendimentossolutions.filafastonline;
 
-public class Empresas {
+public class Empresa {
 
     private String nomebd;
     private String empresa;
