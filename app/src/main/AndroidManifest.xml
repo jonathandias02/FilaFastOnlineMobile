@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Cadastro"></activity>
+        <activity android:name=".Cadastro" />
+        <activity android:name=".Inicio" />
+        <activity android:name=".Filas"></activity>
     </application>
 
 </manifest>

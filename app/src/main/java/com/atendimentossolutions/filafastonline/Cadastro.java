@@ -1,5 +1,6 @@
 package com.atendimentossolutions.filafastonline;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +17,7 @@ public class Cadastro extends AppCompatActivity {
 
     private EditText edt_nome, edt_email, edt_senha, edt_confirmar;
     private Button btn_cadastrar;
-    private String HOST = String.valueOf(R.string.host);
+    private String HOST = "http://192.168.0.102/loginApp/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +69,16 @@ public class Cadastro extends AppCompatActivity {
                                             String retorno = result.get("CADASTRO").getAsString();
                                             if(retorno.equals("SUCESSO")){
                                                 Toast.makeText(Cadastro.this, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                                                Intent inicio = new Intent(Cadastro.this, Inicio.class);
+                                                startActivity(inicio);
                                             }else if(retorno.equals("EMAIL_ERRO")){
                                                 Toast.makeText(Cadastro.this, "Email já cadastrado!", Toast.LENGTH_LONG).show();
                                             }else{
-                                                Toast.makeText(Cadastro.this, "Não foi possivel cadastrar!", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(Cadastro.this, "Ocorreu um erro, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                                             }
 
                                         } catch (Exception erro) {
-                                            Toast.makeText(Cadastro.this, "Ocorreu um erro " + erro, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(Cadastro.this, "Ops, Ocorreu um erro, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -87,6 +90,14 @@ public class Cadastro extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        finish();
 
     }
 }
