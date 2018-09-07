@@ -19,7 +19,7 @@ import java.util.List;
 public class Inicio extends AppCompatActivity {
 
     private ListView listview_empresas;
-    private String HOST = "http://192.168.0.102/532c28d5412dd75bf975fb951c740a30/";
+    private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
     private EmpresaAdapter empresaAdapter;
     private List<Empresa> lista;
 

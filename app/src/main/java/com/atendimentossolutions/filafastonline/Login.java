@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity {
     private EditText edt_email, edt_senha;
     private Button btn_entrar;
     private TextView txt_cadastrar;
-    private String HOST = "http://192.168.0.102/532c28d5412dd75bf975fb951c740a30/";
+    private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
