@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FilaFastOnline</string>
+    <string name="title_activity_tela_principal">TelaPrincipal</string>
 </resources>

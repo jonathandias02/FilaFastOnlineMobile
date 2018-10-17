@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".Cadastro" />
         <activity android:name=".Inicio" />
-        <activity android:name=".Filas"></activity>
+        <activity android:name=".Filas" />
+        <activity android:name=".TelaPrincipal"></activity>
     </application>
 
 </manifest>
