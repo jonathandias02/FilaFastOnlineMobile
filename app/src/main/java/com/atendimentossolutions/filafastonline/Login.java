@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                 String url = HOST + "logar.php";
-                String email = edt_email.getText().toString();
+                final String email = edt_email.getText().toString();
                 String senha = edt_senha.getText().toString();
 
                 if (email.isEmpty()) {
@@ -68,6 +68,7 @@ public class Login extends AppCompatActivity {
                                         if (retorno.equals("SUCESSO")) {
                                             Toast.makeText(Login.this, "Logado com sucesso!", Toast.LENGTH_LONG).show();
                                             Intent inicio = new Intent(Login.this, Inicio.class);
+                                            inicio.putExtra("email", email);
                                             startActivity(inicio);
                                         } else {
                                             Toast.makeText(Login.this, "Usuário e/ou senha invalido(s)!", Toast.LENGTH_LONG).show();

@@ -22,11 +22,20 @@ public class Inicio extends AppCompatActivity {
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
     private EmpresaAdapter empresaAdapter;
     private List<Empresa> lista;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            Bundle dado = intent.getExtras();
+            if(dado != null){
+                email = dado.getString("email");
+            }
+        }
 
         listview_empresas = (ListView) findViewById(R.id.listview_empresas);
 
@@ -44,6 +53,7 @@ public class Inicio extends AppCompatActivity {
                 String nomebd = empresa.getNomebd();
                 Intent filas = new Intent(Inicio.this, Filas.class);
                 filas.putExtra("banco", nomebd);
+                filas.putExtra("email", email);
                 startActivity(filas);
             }
         });

@@ -24,7 +24,7 @@ public class Filas extends AppCompatActivity {
     private FilaAdapter filaAdapter;
     private List<Fila> lista;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
-    private String nomebd;
+    private String nomebd, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class Filas extends AppCompatActivity {
             Bundle dado = intent.getExtras();
             if(dado != null){
                 nomebd = dado.getString("banco");
+                email = dado.getString("email");
                 listarFilas(nomebd);
             }
         }
@@ -49,7 +50,12 @@ public class Filas extends AppCompatActivity {
         listview_filas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fila fila = (Fila) adapterView.getAdapter().getItem(i);
+                int id = fila.getId();
                 Intent principal = new Intent(Filas.this, TelaPrincipal.class);
+                principal.putExtra("id", id);
+                principal.putExtra("nomebd", nomebd);
+                principal.putExtra("email", email);
                 startActivity(principal);
             }
         });
@@ -70,10 +76,11 @@ public class Filas extends AppCompatActivity {
                         try{
                             for(int i = 0; i < result.size(); i++){
                                 JsonObject obj = result.get(i).getAsJsonObject();
-                                Fila f = new Fila();
-                                f.setNome(obj.get("NOME").getAsString());
+                                Fila fila = new Fila();
+                                fila.setId(obj.get("ID").getAsInt());
+                                fila.setNome(obj.get("NOME").getAsString());
 
-                                lista.add(f);
+                                lista.add(fila);
 
                             }
 
