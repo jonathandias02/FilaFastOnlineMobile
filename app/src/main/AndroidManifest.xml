@@ -21,7 +21,8 @@
         <activity android:name=".Cadastro" />
         <activity android:name=".Inicio" />
         <activity android:name=".Filas" />
-        <activity android:name=".TelaPrincipal"></activity>
+        <activity android:name=".TelaPrincipal" />
+        <activity android:name=".SolicitarAtendimento"></activity>
     </application>
 
 </manifest>

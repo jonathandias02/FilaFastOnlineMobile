@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ public class TelaPrincipal extends AppCompatActivity {
 
     private int id;
     private TextView ultimaSenha, ultimoGuiche, senha3, senha2, senha1, guiche3, guiche2, guiche1,
-    suaSenha, pessoas;
+    suaSenha, pessoas, preferencia;
     private Button solicitarSenha;
     private String nomebd, email;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
@@ -37,6 +38,12 @@ public class TelaPrincipal extends AppCompatActivity {
         guiche1 = (TextView) findViewById(R.id.guiche1);
         suaSenha = (TextView) findViewById(R.id.suaSenha);
         pessoas = (TextView) findViewById(R.id.pessoas);
+        preferencia = (TextView) findViewById(R.id.preferencia);
+        solicitarSenha = (Button) findViewById(R.id.solicitarSenha);
+
+
+
+
 
         Intent intent = getIntent();
         if(intent != null){
@@ -47,6 +54,16 @@ public class TelaPrincipal extends AppCompatActivity {
                 email = dado.getString("email");
             }
         }
+
+        solicitarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =  new Intent(TelaPrincipal.this, SolicitarAtendimento.class);
+                intent.putExtra("idFila", id);
+                intent.putExtra("nomebd", nomebd);
+                startActivity(intent);
+            }
+        });
 
         String url = HOST + "senhas.php";
 
