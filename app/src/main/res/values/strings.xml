@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">FilaFastOnline</string>
     <string name="title_activity_tela_principal">TelaPrincipal</string>
+    <string-array name="preferencia">
+        <item>Normal</item>
+        <item>Preferencial</item>
+    </string-array>
 </resources>

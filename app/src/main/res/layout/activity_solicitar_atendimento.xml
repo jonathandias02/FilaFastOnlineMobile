@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="300dp"
         android:layout_height="110dp"
-        app:srcCompat="@drawable/teste"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/teste" />
 
     <TextView
         android:id="@+id/textView2"
@@ -26,19 +27,52 @@
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Serviços:"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginTop="30dp"
+        android:text="Serviços:"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"/>
 
     <Spinner
         android:id="@+id/spinner_servicos"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:visibility="visible"
+        android:layout_gravity="center"/>
 
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Tipo de Atendimento:"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black"/>
+
+    <Spinner
+        android:id="@+id/spinner_preferencia"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:visibility="visible"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/gerarSenha"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Gerar Senha"
+        android:textSize="16sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

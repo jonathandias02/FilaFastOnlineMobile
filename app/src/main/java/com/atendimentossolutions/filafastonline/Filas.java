@@ -24,7 +24,7 @@ public class Filas extends AppCompatActivity {
     private FilaAdapter filaAdapter;
     private List<Fila> lista;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
-    private String nomebd, email;
+    private String nomebd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class Filas extends AppCompatActivity {
             Bundle dado = intent.getExtras();
             if(dado != null){
                 nomebd = dado.getString("banco");
-                email = dado.getString("email");
                 listarFilas(nomebd);
             }
         }
@@ -55,7 +54,6 @@ public class Filas extends AppCompatActivity {
                 Intent principal = new Intent(Filas.this, TelaPrincipal.class);
                 principal.putExtra("id", id);
                 principal.putExtra("nomebd", nomebd);
-                principal.putExtra("email", email);
                 startActivity(principal);
             }
         });

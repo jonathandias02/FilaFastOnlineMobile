@@ -20,7 +20,7 @@ public class TelaPrincipal extends AppCompatActivity {
     private TextView ultimaSenha, ultimoGuiche, senha3, senha2, senha1, guiche3, guiche2, guiche1,
     suaSenha, pessoas, preferencia;
     private Button solicitarSenha;
-    private String nomebd, email;
+    private String nomebd;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
 
     @Override
@@ -41,17 +41,12 @@ public class TelaPrincipal extends AppCompatActivity {
         preferencia = (TextView) findViewById(R.id.preferencia);
         solicitarSenha = (Button) findViewById(R.id.solicitarSenha);
 
-
-
-
-
         Intent intent = getIntent();
         if(intent != null){
             Bundle dado = intent.getExtras();
             if(dado != null){
                 id = dado.getInt("id");
                 nomebd = dado.getString("nomebd");
-                email = dado.getString("email");
             }
         }
 
@@ -80,20 +75,35 @@ public class TelaPrincipal extends AppCompatActivity {
                                 JsonObject uSenha = result.get(0).getAsJsonObject();
                                 ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
                                 ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                    preferencia.setText("Normal");
+                                }else{
+                                    preferencia.setText("Preferencial");
+                                }
                             }else if (result.size() == 2){
                                 JsonObject uSenha = result.get(0).getAsJsonObject();
                                 ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
                                 ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                    preferencia.setText("Normal");
+                                }else{
+                                    preferencia.setText("Preferencial");
+                                }
                                 JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha3.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche3.setText(s3.get("guiche").getAsString());
+                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                guiche1.setText(s3.get("guiche").getAsString());
                             }else if (result.size() == 3){
                                 JsonObject uSenha = result.get(0).getAsJsonObject();
                                 ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
                                 ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                    preferencia.setText("Normal");
+                                }else{
+                                    preferencia.setText("Preferencial");
+                                }
                                 JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha3.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche3.setText(s3.get("guiche").getAsString());
+                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                guiche1.setText(s3.get("guiche").getAsString());
                                 JsonObject s2 = result.get(2).getAsJsonObject();
                                 senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
                                 guiche2.setText(s2.get("guiche").getAsString());
@@ -101,15 +111,20 @@ public class TelaPrincipal extends AppCompatActivity {
                                 JsonObject uSenha = result.get(0).getAsJsonObject();
                                 ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
                                 ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                    preferencia.setText("Normal");
+                                }else{
+                                    preferencia.setText("Preferencial");
+                                }
                                 JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha3.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche3.setText(s3.get("guiche").getAsString());
+                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                guiche1.setText(s3.get("guiche").getAsString());
                                 JsonObject s2 = result.get(2).getAsJsonObject();
                                 senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
                                 guiche2.setText(s2.get("guiche").getAsString());
                                 JsonObject s1 = result.get(3).getAsJsonObject();
-                                senha1.setText(s1.get("sigla").getAsString() + s1.get("numero").getAsString());
-                                guiche1.setText(s1.get("guiche").getAsString());
+                                senha3.setText(s1.get("sigla").getAsString() + s1.get("numero").getAsString());
+                                guiche3.setText(s1.get("guiche").getAsString());
                             }else{
                                 Toast.makeText(TelaPrincipal.this, "Nenhum atendimento realizado até o momento!", Toast.LENGTH_LONG).show();
                             }

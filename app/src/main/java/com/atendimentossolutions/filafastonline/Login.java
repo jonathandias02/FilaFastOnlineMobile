@@ -38,6 +38,13 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        final Globals sessao = (Globals) getApplicationContext();
+        sessao.setId(1);
+        sessao.setNome("Jonathan");
+        sessao.setSobrenome("Almeida");
+        sessao.setTelefone("61 99242-3276");
+        sessao.setEmail("jonathan@jonathan.com");
+
         btn_entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,12 +70,16 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
                                     try {
-
                                         String retorno = result.get("LOGIN").getAsString();
                                         if (retorno.equals("SUCESSO")) {
+                                            Globals globals = (Globals) getApplicationContext();
+                                            globals.setId(result.get("id").getAsInt());
+                                            globals.setNome(result.get("nome").getAsString());
+                                            globals.setSobrenome(result.get("sobrenome").getAsString());
+                                            globals.setTelefone(result.get("telefone").getAsString());
+                                            globals.setEmail(result.get("email").getAsString());
                                             Toast.makeText(Login.this, "Logado com sucesso!", Toast.LENGTH_LONG).show();
                                             Intent inicio = new Intent(Login.this, Inicio.class);
-                                            inicio.putExtra("email", email);
                                             startActivity(inicio);
                                         } else {
                                             Toast.makeText(Login.this, "Usuário e/ou senha invalido(s)!", Toast.LENGTH_LONG).show();
