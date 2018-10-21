@@ -225,6 +225,13 @@
         android:textAppearance="@android:style/TextAppearance.Large"
         android:gravity="center"
         android:layout_marginTop="30dp"/>
+    <TextView
+        android:id="@+id/suaPreferencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/pessoas"

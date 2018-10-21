@@ -25,7 +25,7 @@ public class SolicitarAtendimento extends AppCompatActivity {
     private Spinner spinner_servico, spinner_preferencia;
     private ArrayList<ServicosClass> lista = new ArrayList<ServicosClass>();
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
-    private Integer id;
+    private Integer id, minhaSenha;
     private String nomebd;
     private Button gerarSenha;
 
@@ -44,6 +44,7 @@ public class SolicitarAtendimento extends AppCompatActivity {
             if(dado != null){
                 id = dado.getInt("idFila");
                 nomebd = dado.getString("nomebd");
+                minhaSenha = dado.getInt("minhaSenha");
             }
         }
         ServicosClass selecionar = new ServicosClass(0, "Selecionar", null);
@@ -61,22 +62,25 @@ public class SolicitarAtendimento extends AppCompatActivity {
         gerarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Globals globals = (Globals) getApplicationContext();
-                ServicosClass servico = ((ServicosClass)spinner_servico.getSelectedItem());
-                int idPreferencia;
-                if(spinner_servico.getSelectedItem().equals("Normal")){
-                    idPreferencia = 1;
+                if(minhaSenha == 0) {
+                    Globals globals = (Globals) getApplicationContext();
+                    ServicosClass servico = ((ServicosClass) spinner_servico.getSelectedItem());
+                    int idPreferencia;
+                    if (spinner_preferencia.getSelectedItem().equals("Normal")) {
+                        idPreferencia = 1;
+                    } else {
+                        idPreferencia = 2;
+                    }
+                    if (servico.getId() == 0) {
+                        Toast.makeText(SolicitarAtendimento.this, "Selecione um serviço!", Toast.LENGTH_LONG).show();
+                        spinner_servico.requestFocus();
+                    } else {
+                        solicitarSenha(nomebd, id, idPreferencia, servico.getId(),
+                                globals.getNome() + " " + globals.getSobrenome(), servico.getSigla(), globals.getEmail());
+                    }
                 }else{
-                    idPreferencia = 2;
+                    Toast.makeText(SolicitarAtendimento.this, "Você já está aguardando atendimento!", Toast.LENGTH_LONG).show();
                 }
-                if(servico.getId() == 0){
-                    Toast.makeText(SolicitarAtendimento.this, "Selecione um serviço!", Toast.LENGTH_LONG).show();
-                    spinner_servico.requestFocus();
-                }else {
-                    solicitarSenha(nomebd, id, idPreferencia, servico.getId(),
-                            globals.getNome() + " " + globals.getSobrenome(), servico.getSigla(), globals.getEmail());
-                }
-
             }
         });
 
@@ -142,10 +146,7 @@ public class SolicitarAtendimento extends AppCompatActivity {
                         try{
                             if(result.get("insert").getAsString().equals("SUCESSO")){
                                 Toast.makeText(SolicitarAtendimento.this, "Sua senha é: "+result.get("senha").getAsString(), Toast.LENGTH_LONG).show();
-                                Intent principal = new Intent(SolicitarAtendimento.this, TelaPrincipal.class);
-                                principal.putExtra("id", idFila);
-                                principal.putExtra("nomebd", banco);
-                                startActivity(principal);
+                                onPause();
                             }
                         }catch (Exception erro){
                             Toast.makeText(SolicitarAtendimento.this, "Ocorreu um erro ao solicitar senha!", Toast.LENGTH_LONG).show();
@@ -153,6 +154,17 @@ public class SolicitarAtendimento extends AppCompatActivity {
 
                     }
                 });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+        Intent principal = new Intent(SolicitarAtendimento.this, TelaPrincipal.class);
+        principal.putExtra("id", id);
+        principal.putExtra("nomebd", nomebd);
+        startActivity(principal);
 
     }
 

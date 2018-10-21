@@ -18,9 +18,9 @@ public class TelaPrincipal extends AppCompatActivity {
 
     private int id;
     private TextView ultimaSenha, ultimoGuiche, senha3, senha2, senha1, guiche3, guiche2, guiche1,
-    suaSenha, pessoas, preferencia;
-    private Button solicitarSenha;
-    private String nomebd;
+    suaSenha, pessoas, preferencia, suaPreferencia;
+    private Button solicitarSenha = null;
+    private String nomebd, minhaPreferencia;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
 
     @Override
@@ -37,6 +37,7 @@ public class TelaPrincipal extends AppCompatActivity {
         guiche2 = (TextView) findViewById(R.id.guiche2);
         guiche1 = (TextView) findViewById(R.id.guiche1);
         suaSenha = (TextView) findViewById(R.id.suaSenha);
+        suaPreferencia = (TextView) findViewById(R.id.suaPreferencia);
         pessoas = (TextView) findViewById(R.id.pessoas);
         preferencia = (TextView) findViewById(R.id.preferencia);
         solicitarSenha = (Button) findViewById(R.id.solicitarSenha);
@@ -50,17 +51,10 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         }
 
-        solicitarSenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =  new Intent(TelaPrincipal.this, SolicitarAtendimento.class);
-                intent.putExtra("idFila", id);
-                intent.putExtra("nomebd", nomebd);
-                startActivity(intent);
-            }
-        });
+
 
         String url = HOST + "senhas.php";
+        String urlMinhaSenha = HOST + "minhaSenha.php";
 
         Ion.with(TelaPrincipal.this)
                 .load(url)
@@ -134,6 +128,46 @@ public class TelaPrincipal extends AppCompatActivity {
                         };
                     }
                 });
+        Globals globals = (Globals) getApplicationContext();
+        Ion.with(TelaPrincipal.this)
+                .load(urlMinhaSenha)
+                .setBodyParameter("nomebd", nomebd)
+                .setBodyParameter("idFila", String.valueOf(id))
+                .setBodyParameter("email", globals.getEmail())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        try{
+                            if(result.get("MSENHA").getAsString().equals("SUCESSO")){
+                                if(result.get("preferencia").getAsString().equals("1")){
+                                    minhaPreferencia = "Normal";
+                                }else{
+                                    minhaPreferencia = "Preferencial";
+                                }
+                                suaSenha.setText("Sua senha: "+result.get("sigla").getAsString()+result.get("numero").getAsString());
+                                suaPreferencia.setText("Atendimento "+minhaPreferencia);
+                            }
+                        }catch (Exception erro){
+                            Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar Minha Senha!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        solicitarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =  new Intent(TelaPrincipal.this, SolicitarAtendimento.class);
+                intent.putExtra("idFila", id);
+                intent.putExtra("nomebd", nomebd);
+                if(minhaPreferencia == null){
+                    intent.putExtra("minhaSenha", 0);
+                }else{
+                    intent.putExtra("minhaSenha", 1);
+                }
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -141,5 +175,12 @@ public class TelaPrincipal extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+
     }
 }
