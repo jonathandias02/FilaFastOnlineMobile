@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -178,9 +179,27 @@ public class TelaPrincipal extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if(id == R.id.perfil){
+            Intent intent = new Intent(TelaPrincipal.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.selecionarFila){
+            Intent intent = new Intent(TelaPrincipal.this, Filas.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.selecionarEmpresa){
+            Intent intent = new Intent(TelaPrincipal.this, Inicio.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.sair){
+            Intent intent = new Intent(TelaPrincipal.this, Login.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

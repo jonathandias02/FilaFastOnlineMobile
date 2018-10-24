@@ -14,4 +14,8 @@
         android:title="Selecionar Empresa"
         app:showAsAction="never" />
 
+    <item android:id="@+id/sair"
+        android:title="Sair"
+        app:showAsAction="never" />
+
 </menu>

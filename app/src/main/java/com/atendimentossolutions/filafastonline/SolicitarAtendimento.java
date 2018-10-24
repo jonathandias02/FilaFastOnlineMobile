@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -90,6 +91,31 @@ public class SolicitarAtendimento extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.perfil){
+            Intent intent = new Intent(SolicitarAtendimento.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.selecionarFila){
+            Intent intent = new Intent(SolicitarAtendimento.this, Filas.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.selecionarEmpresa){
+            Intent intent = new Intent(SolicitarAtendimento.this, Inicio.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.sair){
+            Intent intent = new Intent(SolicitarAtendimento.this, Login.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void listaServicos(Integer id, String nome){

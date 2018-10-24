@@ -42,6 +42,8 @@ public class Inicio extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Empresa empresa = (Empresa) adapterView.getAdapter().getItem(i);
                 String nomebd = empresa.getNomebd();
+                Globals globals = (Globals) getApplicationContext();
+                globals.setNomebd(nomebd);
                 Intent filas = new Intent(Inicio.this, Filas.class);
                 filas.putExtra("banco", nomebd);
                 startActivity(filas);

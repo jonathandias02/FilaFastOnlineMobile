@@ -8,6 +8,7 @@ public class Globals extends Application {
     private String sobrenome;
     private String telefone;
     private String email;
+    private String nomebd;
 
     public Integer getId() {
         return id;
@@ -47,5 +48,13 @@ public class Globals extends Application {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNomebd() {
+        return nomebd;
+    }
+
+    public void setNomebd(String nomebd) {
+        this.nomebd = nomebd;
     }
 }

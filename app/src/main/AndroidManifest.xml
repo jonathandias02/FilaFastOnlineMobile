@@ -23,7 +23,9 @@
         <activity android:name=".Inicio" />
         <activity android:name=".Filas" />
         <activity android:name=".TelaPrincipal" />
-        <activity android:name=".SolicitarAtendimento"></activity>
+        <activity android:name=".SolicitarAtendimento" />
+        <activity android:name=".MeuPerfil" />
+        <activity android:name=".AlterarPerfil"></activity>
     </application>
 
 </manifest>
