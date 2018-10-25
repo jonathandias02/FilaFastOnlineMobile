@@ -52,8 +52,6 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         }
 
-
-
         String url = HOST + "senhas.php";
         String urlMinhaSenha = HOST + "minhaSenha.php";
 
@@ -187,7 +185,9 @@ public class TelaPrincipal extends AppCompatActivity {
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
+            Globals globals = (Globals) getApplicationContext();
             Intent intent = new Intent(TelaPrincipal.this, Filas.class);
+            intent.putExtra("banco", globals.getNomebd());
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarEmpresa){

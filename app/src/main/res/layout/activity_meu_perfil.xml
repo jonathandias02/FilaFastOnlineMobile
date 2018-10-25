@@ -49,7 +49,6 @@
                 android:id="@+id/emailPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="jonathan@jonathan.com"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
@@ -81,7 +80,6 @@
                 android:id="@+id/nomePerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jonathan"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
@@ -113,7 +111,6 @@
                 android:id="@+id/sobrenomePerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Almeida Dias"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
@@ -145,7 +142,6 @@
                 android:id="@+id/telefonePerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(61) 992423276"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
@@ -172,7 +168,7 @@
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:layout_marginRight="40dp"/>
+                android:layout_marginRight="30dp"/>
 
             <Button
                 android:id="@+id/alterarSenha"

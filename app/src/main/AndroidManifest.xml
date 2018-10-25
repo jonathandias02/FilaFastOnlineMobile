@@ -25,7 +25,8 @@
         <activity android:name=".TelaPrincipal" />
         <activity android:name=".SolicitarAtendimento" />
         <activity android:name=".MeuPerfil" />
-        <activity android:name=".AlterarPerfil"></activity>
+        <activity android:name=".AlterarPerfil" />
+        <activity android:name=".AlterarSenha"></activity>
     </application>
 
 </manifest>

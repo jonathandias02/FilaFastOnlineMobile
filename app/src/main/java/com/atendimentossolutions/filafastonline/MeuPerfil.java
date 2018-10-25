@@ -48,7 +48,8 @@ public class MeuPerfil extends AppCompatActivity {
         alterarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MeuPerfil.this, AlterarSenha.class);
+                startActivity(intent);
             }
         });
 

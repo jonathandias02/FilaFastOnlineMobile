@@ -102,7 +102,9 @@ public class SolicitarAtendimento extends AppCompatActivity {
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
+            Globals globals = (Globals) getApplicationContext();
             Intent intent = new Intent(SolicitarAtendimento.this, Filas.class);
+            intent.putExtra("banco", globals.getNomebd());
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarEmpresa){
@@ -187,11 +189,6 @@ public class SolicitarAtendimento extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         finish();
-        Intent principal = new Intent(SolicitarAtendimento.this, TelaPrincipal.class);
-        principal.putExtra("id", id);
-        principal.putExtra("nomebd", nomebd);
-        startActivity(principal);
-
     }
 
 }
