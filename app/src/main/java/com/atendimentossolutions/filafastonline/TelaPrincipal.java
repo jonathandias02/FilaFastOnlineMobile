@@ -1,6 +1,7 @@
 package com.atendimentossolutions.filafastonline;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,11 +24,15 @@ public class TelaPrincipal extends AppCompatActivity {
     private Button solicitarSenha = null;
     private String nomebd, minhaPreferencia;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
+
+        handler = new Handler();
+        handler.post(updateSenhas);
 
         ultimaSenha = (TextView) findViewById(R.id.ultimaSenha);
         ultimoGuiche = (TextView) findViewById(R.id.ultimoGuiche);
@@ -52,106 +57,7 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         }
 
-        String url = HOST + "senhas.php";
-        String urlMinhaSenha = HOST + "minhaSenha.php";
 
-        Ion.with(TelaPrincipal.this)
-                .load(url)
-                .setBodyParameter("nomebd", nomebd)
-                .setBodyParameter("idFila", String.valueOf(id))
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        try{
-                            if(result.size() == 1) {
-                                JsonObject uSenha = result.get(0).getAsJsonObject();
-                                ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
-                                ultimoGuiche.setText(uSenha.get("guiche").getAsString());
-                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
-                                    preferencia.setText("Normal");
-                                }else{
-                                    preferencia.setText("Preferencial");
-                                }
-                            }else if (result.size() == 2){
-                                JsonObject uSenha = result.get(0).getAsJsonObject();
-                                ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
-                                ultimoGuiche.setText(uSenha.get("guiche").getAsString());
-                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
-                                    preferencia.setText("Normal");
-                                }else{
-                                    preferencia.setText("Preferencial");
-                                }
-                                JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche1.setText(s3.get("guiche").getAsString());
-                            }else if (result.size() == 3){
-                                JsonObject uSenha = result.get(0).getAsJsonObject();
-                                ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
-                                ultimoGuiche.setText(uSenha.get("guiche").getAsString());
-                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
-                                    preferencia.setText("Normal");
-                                }else{
-                                    preferencia.setText("Preferencial");
-                                }
-                                JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche1.setText(s3.get("guiche").getAsString());
-                                JsonObject s2 = result.get(2).getAsJsonObject();
-                                senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
-                                guiche2.setText(s2.get("guiche").getAsString());
-                            }else if(result.size() == 4){
-                                JsonObject uSenha = result.get(0).getAsJsonObject();
-                                ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
-                                ultimoGuiche.setText(uSenha.get("guiche").getAsString());
-                                if(uSenha.get("t_preferencia_id").getAsInt() == 1){
-                                    preferencia.setText("Normal");
-                                }else{
-                                    preferencia.setText("Preferencial");
-                                }
-                                JsonObject s3 = result.get(1).getAsJsonObject();
-                                senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
-                                guiche1.setText(s3.get("guiche").getAsString());
-                                JsonObject s2 = result.get(2).getAsJsonObject();
-                                senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
-                                guiche2.setText(s2.get("guiche").getAsString());
-                                JsonObject s1 = result.get(3).getAsJsonObject();
-                                senha3.setText(s1.get("sigla").getAsString() + s1.get("numero").getAsString());
-                                guiche3.setText(s1.get("guiche").getAsString());
-                            }else{
-                                Toast.makeText(TelaPrincipal.this, "Nenhum atendimento realizado até o momento!", Toast.LENGTH_LONG).show();
-                            }
-
-                        }catch (Exception erro){
-                            Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar senhas!", Toast.LENGTH_LONG).show();
-                        };
-                    }
-                });
-        Globals globals = (Globals) getApplicationContext();
-        Ion.with(TelaPrincipal.this)
-                .load(urlMinhaSenha)
-                .setBodyParameter("nomebd", nomebd)
-                .setBodyParameter("idFila", String.valueOf(id))
-                .setBodyParameter("email", globals.getEmail())
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        try{
-                            if(result.get("MSENHA").getAsString().equals("SUCESSO")){
-                                if(result.get("preferencia").getAsString().equals("1")){
-                                    minhaPreferencia = "Normal";
-                                }else{
-                                    minhaPreferencia = "Preferencial";
-                                }
-                                suaSenha.setText("Sua senha: "+result.get("sigla").getAsString()+result.get("numero").getAsString());
-                                suaPreferencia.setText("Atendimento "+minhaPreferencia);
-                            }
-                        }catch (Exception erro){
-                            Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar Minha Senha!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
         solicitarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +74,132 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         });
 
+    }
+
+    private final Runnable updateSenhas = new Runnable() {
+        @Override
+        public void run() {
+
+            String url = HOST + "senhas.php";
+            String urlMinhaSenha = HOST + "minhaSenha.php";
+
+            Ion.with(TelaPrincipal.this)
+                    .load(url)
+                    .setBodyParameter("nomebd", nomebd)
+                    .setBodyParameter("idFila", String.valueOf(id))
+                    .asJsonArray()
+                    .setCallback(new FutureCallback<JsonArray>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonArray result) {
+                            try{
+                                if(result.size() == 1) {
+                                    JsonObject uSenha = result.get(0).getAsJsonObject();
+                                    ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
+                                    ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                    if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                        preferencia.setText("Normal");
+                                    }else{
+                                        preferencia.setText("Preferencial");
+                                    }
+                                }else if (result.size() == 2){
+                                    JsonObject uSenha = result.get(0).getAsJsonObject();
+                                    ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
+                                    ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                    if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                        preferencia.setText("Normal");
+                                    }else{
+                                        preferencia.setText("Preferencial");
+                                    }
+                                    JsonObject s3 = result.get(1).getAsJsonObject();
+                                    senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                    guiche1.setText(s3.get("guiche").getAsString());
+                                }else if (result.size() == 3){
+                                    JsonObject uSenha = result.get(0).getAsJsonObject();
+                                    ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
+                                    ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                    if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                        preferencia.setText("Normal");
+                                    }else{
+                                        preferencia.setText("Preferencial");
+                                    }
+                                    JsonObject s3 = result.get(1).getAsJsonObject();
+                                    senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                    guiche1.setText(s3.get("guiche").getAsString());
+                                    JsonObject s2 = result.get(2).getAsJsonObject();
+                                    senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
+                                    guiche2.setText(s2.get("guiche").getAsString());
+                                }else if(result.size() == 4){
+                                    JsonObject uSenha = result.get(0).getAsJsonObject();
+                                    ultimaSenha.setText(uSenha.get("sigla").getAsString() + uSenha.get("numero").getAsString());
+                                    ultimoGuiche.setText(uSenha.get("guiche").getAsString());
+                                    if(uSenha.get("t_preferencia_id").getAsInt() == 1){
+                                        preferencia.setText("Normal");
+                                    }else{
+                                        preferencia.setText("Preferencial");
+                                    }
+                                    JsonObject s3 = result.get(1).getAsJsonObject();
+                                    senha1.setText(s3.get("sigla").getAsString() + s3.get("numero").getAsString());
+                                    guiche1.setText(s3.get("guiche").getAsString());
+                                    JsonObject s2 = result.get(2).getAsJsonObject();
+                                    senha2.setText(s2.get("sigla").getAsString() + s2.get("numero").getAsString());
+                                    guiche2.setText(s2.get("guiche").getAsString());
+                                    JsonObject s1 = result.get(3).getAsJsonObject();
+                                    senha3.setText(s1.get("sigla").getAsString() + s1.get("numero").getAsString());
+                                    guiche3.setText(s1.get("guiche").getAsString());
+                                }else{
+                                    Toast.makeText(TelaPrincipal.this, "Nenhum atendimento realizado até o momento!", Toast.LENGTH_LONG).show();
+                                }
+
+                            }catch (Exception erro){
+                                Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar senhas!", Toast.LENGTH_LONG).show();
+                            };
+                        }
+                    });
+            Globals globals = (Globals) getApplicationContext();
+            Ion.with(TelaPrincipal.this)
+                    .load(urlMinhaSenha)
+                    .setBodyParameter("nomebd", nomebd)
+                    .setBodyParameter("idFila", String.valueOf(id))
+                    .setBodyParameter("email", globals.getEmail())
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            try{
+                                if(result.get("MSENHA").getAsString().equals("SUCESSO")){
+                                    if(result.get("preferencia").getAsString().equals("1")){
+                                        minhaPreferencia = "Normal";
+                                    }else{
+                                        minhaPreferencia = "Preferencial";
+                                    }
+                                    suaSenha.setText("Sua senha: "+result.get("sigla").getAsString()+result.get("numero").getAsString());
+                                    suaPreferencia.setText("Atendimento "+minhaPreferencia);
+                                }else{
+                                    suaSenha.setText("Não está aguardando atendimento.");
+                                    suaPreferencia.setText("");
+                                }
+                            }catch (Exception erro){
+                                Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar Minha Senha!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+            handler.postDelayed(updateSenhas, 3000);
+        }
+    };
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        handler.post(updateSenhas);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        handler.removeCallbacks(updateSenhas);
     }
 
     @Override
