@@ -6,6 +6,10 @@
         android:title="Perfil"
         app:showAsAction="never" />
 
+    <item android:id="@+id/meusAtendimentos"
+        android:title="Meus Atendimentos"
+        app:showAsAction="never" />
+
     <item android:id="@+id/selecionarFila"
         android:title="Selecionar Fila"
         app:showAsAction="never" />

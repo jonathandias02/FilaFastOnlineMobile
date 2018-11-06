@@ -38,13 +38,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        final Globals sessao = (Globals) getApplicationContext();
-        sessao.setId(1);
-        sessao.setNome("Jonathan");
-        sessao.setSobrenome("Almeida");
-        sessao.setTelefone("61 99242-3276");
-        sessao.setEmail("jonathan@jonathan.com");
-
         btn_entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

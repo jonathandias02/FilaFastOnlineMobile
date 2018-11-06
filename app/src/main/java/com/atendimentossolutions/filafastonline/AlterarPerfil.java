@@ -82,9 +82,8 @@ public class AlterarPerfil extends AppCompatActivity {
                                             globals.setNome(snome);
                                             globals.setSobrenome(ssobrenome);
                                             globals.setTelefone(stelefone);
-                                            Intent intent = new Intent(AlterarPerfil.this, MeuPerfil.class);
-                                            startActivity(intent);
                                             Toast.makeText(AlterarPerfil.this, "Alterado com sucesso!", Toast.LENGTH_LONG).show();
+                                            finish();
                                         }else{
                                             Toast.makeText(AlterarPerfil.this, "Não foi possivel alterar!", Toast.LENGTH_LONG).show();
                                         }
@@ -103,6 +102,9 @@ public class AlterarPerfil extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        Globals globals = (Globals) getApplicationContext();
+        MenuItem item = menu.findItem(R.id.perfil);
+        item.setTitle(globals.getNome()+" "+globals.getSobrenome());
         return true;
     }
 
@@ -112,6 +114,10 @@ public class AlterarPerfil extends AppCompatActivity {
 
         if(id == R.id.perfil){
             Intent intent = new Intent(AlterarPerfil.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.meusAtendimentos){
+            Intent intent = new Intent(AlterarPerfil.this, MeusAtendimentos.class);
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
@@ -126,6 +132,7 @@ public class AlterarPerfil extends AppCompatActivity {
             return true;
         }else if(id == R.id.sair){
             Intent intent = new Intent(AlterarPerfil.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }
@@ -136,6 +143,8 @@ public class AlterarPerfil extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Intent intent = new Intent(AlterarPerfil.this, MeuPerfil.class);
+        startActivity(intent);
         finish();
     }
 

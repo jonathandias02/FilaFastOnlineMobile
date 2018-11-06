@@ -69,8 +69,7 @@ public class AlterarSenha extends AppCompatActivity {
                                             String retorno = result.get("update").getAsString();
                                             if(retorno.equals("SUCESSO")){
                                                 Toast.makeText(AlterarSenha.this, "Senha alterada com sucesso!", Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(AlterarSenha.this, MeuPerfil.class);
-                                                startActivity(intent);
+                                                finish();
                                             }else{
                                                 Toast.makeText(AlterarSenha.this, "Senha atual incorreta!", Toast.LENGTH_LONG).show();
                                                 edt_senhaAtual.setText("");
@@ -100,6 +99,9 @@ public class AlterarSenha extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        Globals globals = (Globals) getApplicationContext();
+        MenuItem item = menu.findItem(R.id.perfil);
+        item.setTitle(globals.getNome()+" "+globals.getSobrenome());
         return true;
     }
 
@@ -109,6 +111,10 @@ public class AlterarSenha extends AppCompatActivity {
 
         if(id == R.id.perfil){
             Intent intent = new Intent(AlterarSenha.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.meusAtendimentos){
+            Intent intent = new Intent(AlterarSenha.this, MeusAtendimentos.class);
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
@@ -123,6 +129,7 @@ public class AlterarSenha extends AppCompatActivity {
             return true;
         }else if(id == R.id.sair){
             Intent intent = new Intent(AlterarSenha.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }
@@ -133,6 +140,8 @@ public class AlterarSenha extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Intent intent = new Intent(AlterarSenha.this, MeuPerfil.class);
+        startActivity(intent);
         finish();
     }
 

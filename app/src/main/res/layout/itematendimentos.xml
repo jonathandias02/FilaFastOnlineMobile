@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:id="@+id/linhaMeusAtendimentos"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/mSenha"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/mData"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/mServico"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/mAtendente"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="center" />
+
+    </TableRow>
+
+</LinearLayout>

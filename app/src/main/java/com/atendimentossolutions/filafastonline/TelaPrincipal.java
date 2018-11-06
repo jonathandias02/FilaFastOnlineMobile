@@ -1,11 +1,18 @@
 package com.atendimentossolutions.filafastonline;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,11 +23,13 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.zip.Inflater;
+
 public class TelaPrincipal extends AppCompatActivity {
 
     private int id;
     private TextView ultimaSenha, ultimoGuiche, senha3, senha2, senha1, guiche3, guiche2, guiche1,
-    suaSenha, pessoas, preferencia, suaPreferencia;
+    suaSenha, pessoas, preferencia, suaPreferencia, aviso;
     private Button solicitarSenha = null;
     private String nomebd, minhaPreferencia;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
@@ -45,6 +54,7 @@ public class TelaPrincipal extends AppCompatActivity {
         suaSenha = (TextView) findViewById(R.id.suaSenha);
         suaPreferencia = (TextView) findViewById(R.id.suaPreferencia);
         pessoas = (TextView) findViewById(R.id.pessoas);
+        aviso = (TextView) findViewById(R.id.aviso);
         preferencia = (TextView) findViewById(R.id.preferencia);
         solicitarSenha = (Button) findViewById(R.id.solicitarSenha);
 
@@ -56,8 +66,6 @@ public class TelaPrincipal extends AppCompatActivity {
                 nomebd = dado.getString("nomebd");
             }
         }
-
-
 
         solicitarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,10 +154,7 @@ public class TelaPrincipal extends AppCompatActivity {
                                     JsonObject s1 = result.get(3).getAsJsonObject();
                                     senha3.setText(s1.get("sigla").getAsString() + s1.get("numero").getAsString());
                                     guiche3.setText(s1.get("guiche").getAsString());
-                                }else{
-                                    Toast.makeText(TelaPrincipal.this, "Nenhum atendimento realizado até o momento!", Toast.LENGTH_LONG).show();
                                 }
-
                             }catch (Exception erro){
                                 Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar senhas!", Toast.LENGTH_LONG).show();
                             };
@@ -166,17 +171,49 @@ public class TelaPrincipal extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             try{
-                                if(result.get("MSENHA").getAsString().equals("SUCESSO")){
+                                if(result.get("MSENHA").getAsString().equals("SUCESSO") && result.get("situacao").getAsString().equals("Aguardando")){
                                     if(result.get("preferencia").getAsString().equals("1")){
                                         minhaPreferencia = "Normal";
-                                    }else{
+                                    }else {
                                         minhaPreferencia = "Preferencial";
                                     }
+                                    if(result.get("pessoasFrente").getAsString().equals("0")){
+                                        pessoas.setText("Não há pessoas à sua frente.");
+                                    }else {
+                                        pessoas.setText(result.get("pessoasFrente").getAsString() + " Pessoa(s) à sua frente.");
+                                    }
+                                    if(result.get("pessoasFrente").getAsInt() <= 5){
+                                        aviso.setText("Dirija-se ao local de atendimento!");
+                                    }else{
+                                        aviso.setText("");
+                                    }
                                     suaSenha.setText("Sua senha: "+result.get("sigla").getAsString()+result.get("numero").getAsString());
-                                    suaPreferencia.setText("Atendimento "+minhaPreferencia);
+                                    suaPreferencia.setText("Atendimento "+minhaPreferencia+".");
+
+                                }else if(result.get("MSENHA").getAsString().equals("SUCESSO") && result.get("situacao").getAsString().equals("Chamada")){
+                                    if(result.get("preferencia").getAsString().equals("1")){
+                                        minhaPreferencia = "Normal";
+                                    }else {
+                                        minhaPreferencia = "Preferencial";
+                                    }
+                                    pessoas.setText("");
+                                    suaSenha.setText("Sua senha: "+result.get("sigla").getAsString()+result.get("numero").getAsString());
+                                    suaPreferencia.setText("Dirija-se ao Guichê "+result.get("guiche").getAsString());
+                                    suaPreferencia.setTextColor(Color.parseColor("#FF0000"));
+                                    aviso.setText("");
+                                }else if(result.get("MSENHA").getAsString().equals("SUCESSO") && result.get("situacao").getAsString().equals("Atendida")){
+                                    Intent intent = new Intent(TelaPrincipal.this, Avaliar.class);
+                                    intent.putExtra("idFila", id);
+                                    intent.putExtra("nomebd", nomebd);
+                                    startActivity(intent);
+                                    finish();
                                 }else{
+                                    pessoas.setText("");
                                     suaSenha.setText("Não está aguardando atendimento.");
+                                    suaPreferencia.setTextColor(Color.parseColor("#000000"));
                                     suaPreferencia.setText("");
+                                    minhaPreferencia = null;
+                                    aviso.setText("");
                                 }
                             }catch (Exception erro){
                                 Toast.makeText(TelaPrincipal.this, "Ocorreu um erro ao carregar Minha Senha!", Toast.LENGTH_LONG).show();
@@ -205,6 +242,9 @@ public class TelaPrincipal extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        Globals globals = (Globals) getApplicationContext();
+        MenuItem item = menu.findItem(R.id.perfil);
+        item.setTitle(globals.getNome()+" "+globals.getSobrenome());
         return true;
     }
 
@@ -214,6 +254,10 @@ public class TelaPrincipal extends AppCompatActivity {
 
         if(id == R.id.perfil){
             Intent intent = new Intent(TelaPrincipal.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.meusAtendimentos){
+            Intent intent = new Intent(TelaPrincipal.this, MeusAtendimentos.class);
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
@@ -228,6 +272,7 @@ public class TelaPrincipal extends AppCompatActivity {
             return true;
         }else if(id == R.id.sair){
             Intent intent = new Intent(TelaPrincipal.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }

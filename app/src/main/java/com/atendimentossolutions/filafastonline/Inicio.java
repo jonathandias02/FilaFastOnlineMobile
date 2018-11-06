@@ -102,6 +102,7 @@ public class Inicio extends AppCompatActivity {
 
         if(id == R.id.sair){
             Intent intent = new Intent(Inicio.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }

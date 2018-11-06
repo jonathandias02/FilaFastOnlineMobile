@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Avaliar">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="300dp"
+        android:layout_height="110dp"
+        app:srcCompat="@drawable/teste"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Obrigado por utilizar o FFO!"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Avalie seu atendimento!"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioAvaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <RadioButton
+            android:id="@+id/pessimo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Péssimo" />
+
+        <RadioButton
+            android:id="@+id/ruim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Ruim" />
+
+        <RadioButton
+            android:id="@+id/bom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Bom" />
+
+        <RadioButton
+            android:id="@+id/muitobom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Muito Bom" />
+
+        <RadioButton
+            android:id="@+id/otimo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Ótimo" />
+    </RadioGroup>
+
+    <TableLayout
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
+
+        <TableRow>
+            <Button
+                android:id="@+id/btn_avaliar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:text="Avaliar"/>
+
+            <Button
+                android:id="@+id/btn_naoavaliar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:text="Não Avaliar"/>
+        </TableRow>
+    </TableLayout>
+
+
+
+</LinearLayout>

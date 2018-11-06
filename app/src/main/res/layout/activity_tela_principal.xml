@@ -12,13 +12,13 @@
         android:layout_height="110dp"
         app:srcCompat="@drawable/teste"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Ultima Senha:"
         android:textColor="@android:color/black"
@@ -215,7 +215,7 @@
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/suaSenha"
@@ -230,8 +230,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:gravity="center"/>
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/pessoas"
@@ -241,6 +243,16 @@
         android:textAppearance="@android:style/TextAppearance.Large"
         android:gravity="center"
         android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/aviso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"/>
 
 
 </LinearLayout>

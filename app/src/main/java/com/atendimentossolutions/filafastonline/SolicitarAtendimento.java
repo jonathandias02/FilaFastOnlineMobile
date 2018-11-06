@@ -90,6 +90,9 @@ public class SolicitarAtendimento extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        Globals globals = (Globals) getApplicationContext();
+        MenuItem item = menu.findItem(R.id.perfil);
+        item.setTitle(globals.getNome()+" "+globals.getSobrenome());
         return true;
     }
 
@@ -99,6 +102,10 @@ public class SolicitarAtendimento extends AppCompatActivity {
 
         if(id == R.id.perfil){
             Intent intent = new Intent(SolicitarAtendimento.this, MeuPerfil.class);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.meusAtendimentos){
+            Intent intent = new Intent(SolicitarAtendimento.this, MeusAtendimentos.class);
             startActivity(intent);
             return true;
         }else if(id == R.id.selecionarFila){
@@ -113,6 +120,7 @@ public class SolicitarAtendimento extends AppCompatActivity {
             return true;
         }else if(id == R.id.sair){
             Intent intent = new Intent(SolicitarAtendimento.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }
@@ -174,7 +182,7 @@ public class SolicitarAtendimento extends AppCompatActivity {
                         try{
                             if(result.get("insert").getAsString().equals("SUCESSO")){
                                 Toast.makeText(SolicitarAtendimento.this, "Sua senha é: "+result.get("senha").getAsString(), Toast.LENGTH_LONG).show();
-                                onPause();
+                                finish();
                             }
                         }catch (Exception erro){
                             Toast.makeText(SolicitarAtendimento.this, "Ocorreu um erro ao solicitar senha!", Toast.LENGTH_LONG).show();

@@ -37,10 +37,10 @@ public class Cadastro extends AppCompatActivity {
             public void onClick(View view) {
 
                 String url = HOST + "cadastro.php";
-                String nome = edt_nome.getText().toString();
-                String sobrenome = edt_sobrenome.getText().toString();
-                String email = edt_email.getText().toString();
-                String telefone = edt_telefone.getText().toString();
+                final String nome = edt_nome.getText().toString();
+                final String sobrenome = edt_sobrenome.getText().toString();
+                final String email = edt_email.getText().toString();
+                final String telefone = edt_telefone.getText().toString();
                 String senha = edt_senha.getText().toString();
                 String confirmar = edt_confirmar.getText().toString();
 
@@ -77,9 +77,13 @@ public class Cadastro extends AppCompatActivity {
                                     @Override
                                     public void onCompleted(Exception e, JsonObject result) {
                                         try {
-                                            //Toast.makeText(Cadastro.this, "Retorno: " + result.get("NOME").getAsString(), Toast.LENGTH_LONG).show();
                                             String retorno = result.get("CADASTRO").getAsString();
                                             if(retorno.equals("SUCESSO")){
+                                                Globals globals = (Globals) getApplicationContext();
+                                                globals.setNome(nome);
+                                                globals.setSobrenome(sobrenome);
+                                                globals.setTelefone(telefone);
+                                                globals.setEmail(email);
                                                 Toast.makeText(Cadastro.this, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show();
                                                 Intent inicio = new Intent(Cadastro.this, Inicio.class);
                                                 startActivity(inicio);

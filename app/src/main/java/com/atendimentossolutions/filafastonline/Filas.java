@@ -104,12 +104,9 @@ public class Filas extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.selecionarEmpresa){
-            Intent intent = new Intent(Filas.this, Inicio.class);
-            startActivity(intent);
-            return true;
-        }else if(id == R.id.sair){
+        if(id == R.id.sair){
             Intent intent = new Intent(Filas.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return true;
         }
