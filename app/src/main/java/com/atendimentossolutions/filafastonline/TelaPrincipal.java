@@ -204,7 +204,7 @@ public class TelaPrincipal extends AppCompatActivity {
                                 }else if(result.get("MSENHA").getAsString().equals("SUCESSO") && result.get("situacao").getAsString().equals("Atendida")){
                                     Intent intent = new Intent(TelaPrincipal.this, Avaliar.class);
                                     intent.putExtra("idFila", id);
-                                    intent.putExtra("nomebd", nomebd);
+                                    intent.putExtra("idSenha", result.get("id").getAsInt());
                                     startActivity(intent);
                                     finish();
                                 }else{

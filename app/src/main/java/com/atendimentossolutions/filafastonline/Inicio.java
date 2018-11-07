@@ -46,6 +46,7 @@ public class Inicio extends AppCompatActivity {
                 String nomebd = empresa.getNomebd();
                 Globals globals = (Globals) getApplicationContext();
                 globals.setNomebd(nomebd);
+                globals.setCnpj(empresa.getCnpj());
                 Intent filas = new Intent(Inicio.this, Filas.class);
                 filas.putExtra("banco", nomebd);
                 startActivity(filas);
@@ -71,6 +72,7 @@ public class Inicio extends AppCompatActivity {
 
                                 JsonObject obj = result.get(i).getAsJsonObject();
                                 Empresa empresa = new Empresa();
+                                empresa.setCnpj(obj.get("CNPJ").getAsString());
                                 empresa.setEmpresa(obj.get("EMPRESA").getAsString());
                                 empresa.setEndereco(obj.get("ENDERECO").getAsString());
                                 empresa.setNomebd(obj.get("BANCODEDADOS").getAsString());

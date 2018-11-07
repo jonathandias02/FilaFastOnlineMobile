@@ -9,6 +9,7 @@ public class Globals extends Application {
     private String telefone;
     private String email;
     private String nomebd;
+    private String cnpj;
 
     public Integer getId() {
         return id;
@@ -56,5 +57,13 @@ public class Globals extends Application {
 
     public void setNomebd(String nomebd) {
         this.nomebd = nomebd;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }
