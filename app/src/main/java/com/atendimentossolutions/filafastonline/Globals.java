@@ -10,6 +10,7 @@ public class Globals extends Application {
     private String email;
     private String nomebd;
     private String cnpj;
+    private String nomeEmpresa;
 
     public Integer getId() {
         return id;
@@ -65,5 +66,13 @@ public class Globals extends Application {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public String getNomeEmpresa() {
+        return nomeEmpresa;
+    }
+
+    public void setNomeEmpresa(String nomeEmpresa) {
+        this.nomeEmpresa = nomeEmpresa;
     }
 }

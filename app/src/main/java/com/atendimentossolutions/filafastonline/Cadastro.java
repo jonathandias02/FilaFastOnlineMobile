@@ -1,6 +1,7 @@
 package com.atendimentossolutions.filafastonline;
 
 import android.content.Intent;
+import android.graphics.MaskFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,8 @@ public class Cadastro extends AppCompatActivity {
         edt_confirmar = (EditText) findViewById(R.id.edt_confirmar);
         btn_cadastrar = (Button) findViewById(R.id.btn_cadastrar);
 
+        edt_telefone.addTextChangedListener(MaskEditUtil.mask(edt_telefone, MaskEditUtil.FORMAT_FONE));
+
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,10 +42,11 @@ public class Cadastro extends AppCompatActivity {
                 String url = HOST + "cadastro.php";
                 final String nome = edt_nome.getText().toString();
                 final String sobrenome = edt_sobrenome.getText().toString();
-                final String email = edt_email.getText().toString();
+                final String email = edt_email.getText().toString().trim();
                 final String telefone = edt_telefone.getText().toString();
                 String senha = edt_senha.getText().toString();
                 String confirmar = edt_confirmar.getText().toString();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
                 if (nome.isEmpty()) {
                     Toast.makeText(Cadastro.this, "O nome deve ser preenchido!", Toast.LENGTH_LONG).show();
@@ -53,7 +57,11 @@ public class Cadastro extends AppCompatActivity {
                 } else if (email.isEmpty()) {
                     Toast.makeText(Cadastro.this, "O email deve ser preenchido!", Toast.LENGTH_LONG).show();
                     edt_email.requestFocus();
-                }else if(telefone.isEmpty()){
+                } else if(!email.matches(emailPattern)){
+                    Toast.makeText(Cadastro.this, "Email invalido!", Toast.LENGTH_LONG).show();
+                    edt_email.setText("");
+                    edt_email.requestFocus();
+                } else if(telefone.isEmpty()){
                     Toast.makeText(Cadastro.this, "O telefone deve ser preenchido!", Toast.LENGTH_LONG).show();
                     edt_telefone.requestFocus();
                 } else if (senha.isEmpty()) {
@@ -101,6 +109,9 @@ public class Cadastro extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(Cadastro.this, "As senhas não conferem!", Toast.LENGTH_LONG).show();
+                        edt_senha.requestFocus();
+                        edt_senha.setText("");
+                        edt_confirmar.setText("");
                     }
                 }
 

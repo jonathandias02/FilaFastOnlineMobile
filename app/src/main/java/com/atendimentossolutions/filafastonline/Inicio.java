@@ -47,6 +47,7 @@ public class Inicio extends AppCompatActivity {
                 Globals globals = (Globals) getApplicationContext();
                 globals.setNomebd(nomebd);
                 globals.setCnpj(empresa.getCnpj());
+                globals.setNomeEmpresa(empresa.getEmpresa());
                 Intent filas = new Intent(Inicio.this, Filas.class);
                 filas.putExtra("banco", nomebd);
                 startActivity(filas);

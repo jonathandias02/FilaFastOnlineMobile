@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -20,6 +21,7 @@ public class MeusAtendimentos extends AppCompatActivity {
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
     private ItemMeusAtendimentosAdapter itemMeusAtendimentosAdapter;
     private List<ItemMeusAtendimentos> lista;
+    private TextView nomeEmpresa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,14 @@ public class MeusAtendimentos extends AppCompatActivity {
         setContentView(R.layout.activity_meus_atendimentos);
 
         listaAtendimentos = (ListView) findViewById(R.id.listaAtendimentos);
+        nomeEmpresa = (TextView) findViewById(R.id.nomeEmpresa);
 
         lista = new ArrayList<ItemMeusAtendimentos>();
         itemMeusAtendimentosAdapter = new ItemMeusAtendimentosAdapter(MeusAtendimentos.this, lista);
 
         listaAtendimentos.setAdapter(itemMeusAtendimentosAdapter);
+        Globals globals = (Globals) getApplicationContext();
+        nomeEmpresa.setText(globals.getNomeEmpresa());
 
         listarAtendimentos();
 

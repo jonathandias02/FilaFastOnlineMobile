@@ -16,7 +16,7 @@ import com.koushikdutta.ion.Ion;
 
 public class Avaliar extends AppCompatActivity {
 
-    Button btn_avaliar, btn_naoavaliar;
+    Button btn_avaliar;
     RadioGroup radioAvaliacao;
     Integer idSenha, idFila;
     String nomebd;
@@ -31,7 +31,6 @@ public class Avaliar extends AppCompatActivity {
 
         radioAvaliacao = (RadioGroup) findViewById(R.id.radioAvaliacao);
         btn_avaliar = (Button) findViewById(R.id.btn_avaliar);
-        btn_naoavaliar = (Button) findViewById(R.id.btn_naoavaliar);
         final Globals globals = (Globals) getApplicationContext();
 
         radioAvaliacao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -67,19 +66,17 @@ public class Avaliar extends AppCompatActivity {
                 avaliar(globals.getNomebd(), idSenha, valor, globals.getCnpj(), globals.getId());
             }
         });
-
-        btn_naoavaliar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                naoAvaliar(globals.getNomebd(), idSenha);
-            }
-        });
-
     }
 
     @Override
     protected void onPause() {
+        Globals banco = (Globals) getApplicationContext();
         super.onPause();
+        naoAvaliar(banco.getNomebd(), idSenha);
+        Intent intent = new Intent(Avaliar.this, TelaPrincipal.class);
+        intent.putExtra("id", idFila);
+        intent.putExtra("nomebd", banco.getNomebd());
+        startActivity(intent);
         finish();
     }
 
@@ -130,12 +127,7 @@ public class Avaliar extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
                         try{
                             if(result.get("avaliacao").getAsString().equals("sucesso")){
-                                Globals bd = (Globals) getApplicationContext();
-                                Intent intent = new Intent(Avaliar.this, TelaPrincipal.class);
-                                intent.putExtra("id", idFila);
-                                intent.putExtra("nomebd", bd.getNomebd());
-                                startActivity(intent);
-                                finish();
+
                             }else{
                                 Toast.makeText(Avaliar.this, "Não foi possivel avaliar!", Toast.LENGTH_LONG).show();
                             }

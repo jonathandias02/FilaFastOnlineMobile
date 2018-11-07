@@ -15,14 +15,13 @@
         android:layout_marginTop="40dp"/>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/nomeEmpresa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="Centro Universitario Unieuro"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:gravity="center"
         android:text="Meus Últimos Atendimentos"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TableLayout
