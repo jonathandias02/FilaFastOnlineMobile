@@ -81,7 +81,8 @@
                 android:layout_width="268dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvxwyzçABCDEFGHIJKLMNOPQRSTUVXWYZÇ´~^"/>
 
         </TableRow>
     </TableLayout>
@@ -111,7 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvxwyzçABCDEFGHIJKLMNOPQRSTUVXWYZÇ ´~^"/>
 
         </TableRow>
     </TableLayout>
@@ -140,8 +142,10 @@
                 android:id="@+id/edt_altTelefone"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
+                android:hint="Telefone - DDD + Número"
                 android:ems="10"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:digits="1234567890"/>
 
         </TableRow>
     </TableLayout>

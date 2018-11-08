@@ -53,7 +53,10 @@ public class Filas extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Fila fila = (Fila) adapterView.getAdapter().getItem(i);
                 int id = fila.getId();
+                final Globals globals = (Globals) getApplicationContext();
+                globals.setIdFila(fila.getId());
                 Intent principal = new Intent(Filas.this, TelaPrincipal.class);
+                principal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 principal.putExtra("id", id);
                 principal.putExtra("nomebd", nomebd);
                 startActivity(principal);

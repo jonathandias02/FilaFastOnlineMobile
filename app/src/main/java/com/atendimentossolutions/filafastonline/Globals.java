@@ -4,6 +4,7 @@ import android.app.Application;
 
 public class Globals extends Application {
     private Integer id;
+    private Integer idFila;
     private String nome;
     private String sobrenome;
     private String telefone;
@@ -18,6 +19,14 @@ public class Globals extends Application {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getIdFila() {
+        return idFila;
+    }
+
+    public void setIdFila(Integer idFila) {
+        this.idFila = idFila;
     }
 
     public String getNome() {

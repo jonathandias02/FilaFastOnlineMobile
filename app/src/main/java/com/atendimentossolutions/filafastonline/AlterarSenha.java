@@ -45,6 +45,11 @@ public class AlterarSenha extends AppCompatActivity {
                 }else if(novaSenha.isEmpty()){
                     Toast.makeText(AlterarSenha.this, "Todos os campos são obrigatórios!", Toast.LENGTH_LONG).show();
                     edt_novaSenha.requestFocus();
+                }else if(novaSenha.length() < 6){
+                    Toast.makeText(AlterarSenha.this, "A Nova Senha deve conter no mínimo 6 caracteres!", Toast.LENGTH_LONG).show();
+                    edt_novaSenha.setText("");
+                    edt_confirmarNovaSenha.setText("");
+                    edt_novaSenha.requestFocus();
                 } else if(confirmarSenha.isEmpty()){
                     Toast.makeText(AlterarSenha.this, "Todos os campos são obrigatórios!", Toast.LENGTH_LONG).show();
                     edt_confirmarNovaSenha.requestFocus();

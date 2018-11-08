@@ -32,6 +32,8 @@ public class AlterarPerfil extends AppCompatActivity {
         edt_altTelefone = (EditText) findViewById(R.id.edt_altTelefone);
         salvarAlt = (Button) findViewById(R.id.salvarAlt);
 
+        edt_altTelefone.addTextChangedListener(MaskEditUtil.mask(edt_altTelefone, MaskEditUtil.FORMAT_FONE));
+
         Intent intent = getIntent();
         if(intent != null){
             Bundle dado = intent.getExtras();
@@ -63,6 +65,9 @@ public class AlterarPerfil extends AppCompatActivity {
                     edt_altSobrenome.requestFocus();
                 }else if(stelefone.isEmpty()){
                     Toast.makeText(AlterarPerfil.this, "O telefone deve ser preenchido!", Toast.LENGTH_LONG).show();
+                    edt_altTelefone.requestFocus();
+                }else if(stelefone.length() < 14){
+                    Toast.makeText(AlterarPerfil.this, "Número de telefone inválido!", Toast.LENGTH_LONG).show();
                     edt_altTelefone.requestFocus();
                 }else{
                     Ion.with(AlterarPerfil.this)

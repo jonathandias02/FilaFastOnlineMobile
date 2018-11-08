@@ -30,28 +30,18 @@
                 android:hint="Nome"
                 android:inputType="text"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:digits="abcdefghijklmnopqrstuvxwyzçABCDEFGHIJKLMNOPQRSTUVXWYZÇ´~^"/>
 
             <EditText
                 android:id="@+id/edt_sobrenome"
                 android:hint="Sobrenome"
                 android:inputType="text"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:digits="abcdefghijklmnopqrstuvxwyzçABCDEFGHIJKLMNOPQRSTUVXWYZÇ ´~^"/>
 
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </TableLayout>
 
 
@@ -67,21 +57,23 @@
 
     <EditText
         android:id="@+id/edt_telefone"
-        android:hint="Telefone"
+        android:hint="Telefone - DDD + Número"
         android:layout_marginTop="5dp"
         android:inputType="phone"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:digits="1234567890"/>
 
     <EditText
         android:id="@+id/edt_senha"
-        android:hint="Senha"
+        android:hint="Senha - Entre 6 e 12 caracteres"
         android:layout_marginTop="5dp"
         android:inputType="textPassword"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:maxLength="12"/>
 
     <EditText
         android:id="@+id/edt_confirmar"
@@ -90,18 +82,18 @@
         android:inputType="textPassword"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:maxLength="12"/>
 
     <Button
         android:id="@+id/btn_cadastrar"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
         android:text="Cadastrar"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />
-
 </LinearLayout>

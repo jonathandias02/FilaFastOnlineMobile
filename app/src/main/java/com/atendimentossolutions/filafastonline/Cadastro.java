@@ -58,14 +58,21 @@ public class Cadastro extends AppCompatActivity {
                     Toast.makeText(Cadastro.this, "O email deve ser preenchido!", Toast.LENGTH_LONG).show();
                     edt_email.requestFocus();
                 } else if(!email.matches(emailPattern)){
-                    Toast.makeText(Cadastro.this, "Email invalido!", Toast.LENGTH_LONG).show();
-                    edt_email.setText("");
+                    Toast.makeText(Cadastro.this, "Email inválido!", Toast.LENGTH_LONG).show();
                     edt_email.requestFocus();
                 } else if(telefone.isEmpty()){
                     Toast.makeText(Cadastro.this, "O telefone deve ser preenchido!", Toast.LENGTH_LONG).show();
                     edt_telefone.requestFocus();
+                }else if(telefone.length() < 14){
+                    Toast.makeText(Cadastro.this, "Número de telefone inválido!", Toast.LENGTH_LONG).show();
+                    edt_telefone.requestFocus();
                 } else if (senha.isEmpty()) {
                     Toast.makeText(Cadastro.this, "A Senha deve ser preenchido!", Toast.LENGTH_LONG).show();
+                    edt_senha.requestFocus();
+                }else if(senha.length() < 6){
+                    Toast.makeText(Cadastro.this, "A Senha deve conter no mínimo 6 caracteres!", Toast.LENGTH_LONG).show();
+                    edt_senha.setText("");
+                    edt_confirmar.setText("");
                     edt_senha.requestFocus();
                 } else if (confirmar.isEmpty()) {
                     Toast.makeText(Cadastro.this, "Você deve confirmar a senha!", Toast.LENGTH_LONG).show();
@@ -92,8 +99,9 @@ public class Cadastro extends AppCompatActivity {
                                                 globals.setSobrenome(sobrenome);
                                                 globals.setTelefone(telefone);
                                                 globals.setEmail(email);
-                                                Toast.makeText(Cadastro.this, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(Cadastro.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                                                 Intent inicio = new Intent(Cadastro.this, Inicio.class);
+                                                inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 startActivity(inicio);
                                             }else if(retorno.equals("EMAIL_ERRO")){
                                                 Toast.makeText(Cadastro.this, "Email já cadastrado!", Toast.LENGTH_LONG).show();

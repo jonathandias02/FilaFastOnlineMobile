@@ -35,6 +35,8 @@ public class TelaPrincipal extends AppCompatActivity {
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
     private Handler handler;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -278,5 +280,30 @@ public class TelaPrincipal extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    //tratamento do back
+    private boolean backPressedOnce = false;
+    private Handler backPressedHandler = new Handler();
+    private static final int BACK_PRESSED_DELAY = 2000;
+    private final Runnable backPressedTimeoutAction = new Runnable() {
+        @Override
+        public void run() {
+            backPressedOnce = false;
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+            if (this.backPressedOnce) {
+                // Finaliza a aplicacao
+                finish();
+                return;
+            }else {
+                this.backPressedOnce = true;
+                Toast.makeText(this, "Pressione novamente para sair", Toast.LENGTH_SHORT).show();
+                backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
+            }
     }
 }

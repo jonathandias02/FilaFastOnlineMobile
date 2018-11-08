@@ -45,9 +45,13 @@ public class Login extends AppCompatActivity {
                 String url = HOST + "logar.php";
                 final String email = edt_email.getText().toString();
                 String senha = edt_senha.getText().toString();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
                 if (email.isEmpty()) {
                     Toast.makeText(Login.this, "O email deve ser preenchido!", Toast.LENGTH_LONG).show();
+                    edt_email.requestFocus();
+                }else if(!email.matches(emailPattern)){
+                    Toast.makeText(Login.this, "Email inválido!", Toast.LENGTH_LONG).show();
                     edt_email.requestFocus();
                 } else if (senha.isEmpty()) {
                     Toast.makeText(Login.this, "A senha deve ser preenchido!", Toast.LENGTH_LONG).show();
@@ -71,17 +75,15 @@ public class Login extends AppCompatActivity {
                                             globals.setSobrenome(result.get("sobrenome").getAsString());
                                             globals.setTelefone(result.get("telefone").getAsString());
                                             globals.setEmail(result.get("email").getAsString());
-                                            Toast.makeText(Login.this, "Logado com sucesso!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(Login.this, "Logado com sucesso!", Toast.LENGTH_SHORT).show();
                                             Intent inicio = new Intent(Login.this, Inicio.class);
                                             startActivity(inicio);
+                                            finish();
                                         } else {
                                             Toast.makeText(Login.this, "Usuário e/ou senha invalido(s)!", Toast.LENGTH_LONG).show();
                                         }
-
                                     } catch (Exception erro) {
-
                                         Toast.makeText(Login.this, "Ops, Ocorreu um erro, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-
                                     }
                                 }
                             });
@@ -90,13 +92,6 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
 
     }
 }

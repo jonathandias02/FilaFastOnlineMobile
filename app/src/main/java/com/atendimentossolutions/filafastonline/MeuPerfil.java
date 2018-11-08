@@ -102,4 +102,14 @@ public class MeuPerfil extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Globals globals = (Globals) getApplicationContext();
+        Intent intent = new Intent(MeuPerfil.this, TelaPrincipal.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("id", globals.getIdFila());
+        intent.putExtra("nomebd", globals.getNomebd());
+        startActivity(intent);
+    }
 }
