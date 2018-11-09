@@ -19,16 +19,17 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Escolha a instituição em que deseja atendimento."
         android:textColor="#000000"
-        android:textSize="17sp" />
+        android:textStyle="bold"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/listview_empresas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"></ListView>
+        android:layout_marginTop="40dp"></ListView>
 
 </LinearLayout>

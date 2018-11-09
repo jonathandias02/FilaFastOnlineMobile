@@ -19,7 +19,6 @@ public class Avaliar extends AppCompatActivity {
     Button btn_avaliar;
     RadioGroup radioAvaliacao;
     Integer idSenha, idFila;
-    String nomebd;
     String radioSelecionado;
     Integer valor;
     private String HOST = "http://192.168.0.102/FilaFastOnlineMobile/";
@@ -63,7 +62,7 @@ public class Avaliar extends AppCompatActivity {
                 }else if(radioSelecionado.equals("Ótimo")){
                     valor = 5;
                 }
-                avaliar(globals.getNomebd(), idSenha, valor, globals.getCnpj(), globals.getId());
+                avaliar(globals.getNomebd(), idSenha, valor, globals.getCnpj(), globals.getId(), radioSelecionado);
             }
         });
     }
@@ -80,7 +79,7 @@ public class Avaliar extends AppCompatActivity {
         finish();
     }
 
-    private void avaliar(String nomebd, int idSenha, int nota, String cnpj, int idUsuario){
+    private void avaliar(String nomebd, int idSenha, int nota, String cnpj, int idUsuario, String avaliacao){
         String url = HOST + "avaliar.php";
 
         Ion.with(Avaliar.this)
@@ -90,6 +89,7 @@ public class Avaliar extends AppCompatActivity {
                 .setBodyParameter("nota", String.valueOf(nota))
                 .setBodyParameter("cnpj", cnpj)
                 .setBodyParameter("idUsuario", String.valueOf(idUsuario))
+                .setBodyParameter("avaliacao", avaliacao)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

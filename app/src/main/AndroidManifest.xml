@@ -28,7 +28,8 @@
         <activity android:name=".AlterarPerfil" />
         <activity android:name=".AlterarSenha" />
         <activity android:name=".Avaliar" />
-        <activity android:name=".MeusAtendimentos"></activity>
+        <activity android:name=".MeusAtendimentos" />
+        <activity android:name=".EsqueceuSenha"></activity>
     </application>
 
 </manifest>
